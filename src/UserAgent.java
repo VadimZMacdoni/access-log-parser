@@ -16,7 +16,9 @@ public class UserAgent {
     public UserAgent(String str) {
 
         // browser
-        if(str.contains("Edg")){
+        if(str == null) {
+            this.browser = null;
+        } else if (str.contains("Edg")){
             this.browser = "Edge";
         } else if (str.contains("OPR")||str.contains("Opera")) {
             this.browser = "Opera";
@@ -31,8 +33,11 @@ public class UserAgent {
         }
 
         // OS
-        String partStr = extractFromLine(str, "[\\s][(](.{20})");
-        if(partStr.contains("Linux")){
+        String partStr = extractFromLineGroup(str, "[\\s][(](.{20}).");
+
+        if(partStr == null) {
+            this.operationalSystem = null;
+        } else if (partStr.contains("Linux")){
             this.operationalSystem = "Linux";
         } else if (partStr.contains("Windows")) {
             this.operationalSystem = "Windows";
@@ -45,11 +50,11 @@ public class UserAgent {
         }
     }
 
-    public static String extractFromLine(String str, String regex){
+    public static String extractFromLineGroup(String str, String regex) {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(str);
 
-        if (matcher.find()&&!matcher.group(1).equals("-")) {
+        if (matcher.find() && !matcher.group(1).equals("-")) {
             return matcher.group(1);
         }
         return null;

@@ -15,7 +15,7 @@ public class LogEntry {
         return ipAddr;
     }
 
-    public LocalDateTime getTime() {
+    public LocalDateTime getTimeFromLog() {
         return time;
     }
 
@@ -46,39 +46,39 @@ public class LogEntry {
     public LogEntry(String str) {
 
         // ip address
-        this.ipAddr=extractFromLine(str, "(?<!\\d)(?:25[0-5]|2[0-4]\\d|[01]?\\d\\d?)(?:\\.(?:25[0-5]|2[0-4]\\d|[01]?\\d\\d?)){3}(?!\\d)");
+        this.ipAddr=extractFromLineGroup(str, "((?<!\\d)(?:25[0-5]|2[0-4]\\d|[01]?\\d\\d?)(?:\\.(?:25[0-5]|2[0-4]\\d|[01]?\\d\\d?)){3}(?!\\d))[\\s]");
 
         // local date time
-        LocalDateTime time = new LocalDateTime(extractFromLine(str, "[[](.*?)[]]"));
+        LocalDateTime time = new LocalDateTime(extractFromLineGroup(str, "[\\s][\\[](.*?)[]]"));
         this.time=time;
 
         // http method
-        this.method=HttpMethod.valueOf(extractFromLine(str, "[]](.*?)[/]").replaceAll(" ", "")
+        this.method=HttpMethod.valueOf(extractFromLineGroup(str, "[]](.*?)[/]").replaceAll(" ", "")
                 .replaceAll("\"", ""));
 
         // path
-        this.path=extractFromLine(str, "[ ][/](.*)[\\\"][ ][\\d]");
+        this.path=extractFromLineGroup(str, "[ ][/](.*)[\\\"][ ][\\d]");
 
         // response code
-        this.responseCode=Integer.parseInt(extractFromLine(str, "[\\\"\\s](\\d{3})[\\s]").replaceAll(" ", ""));
+        this.responseCode=Integer.parseInt(extractFromLineGroup(str, "[\\\"\\s](\\d{3})[\\s]").replaceAll(" ", ""));
 
         // response size
-        this.responseSize=Integer.parseInt(extractFromLine(str, "[[\\s](\\d+\\s)[\\\"]").replaceAll(" ", ""));
+        this.responseSize=Integer.parseInt(extractFromLineGroup(str, "[\\s](\\d+\\s)[\\\"]").replaceAll(" ", ""));
 
         // referer
-        this.referer=extractFromLine(str, "[\\d][\\s][\\\"](.*)[\\\"][\\s][\\\"]");
+        this.referer=extractFromLineGroup(str, "[\\d][\\s][\\\"](.*)[\\\"][\\s][\\\"]");
 
         // agent
-        UserAgent agent = new UserAgent(extractFromLine(str, "[\\\"][\\s][\\\"](.*)[\\\"]"));
+        UserAgent agent = new UserAgent(extractFromLineGroup(str, "[\\\"][\\s][\\\"](.*)[\\\"]"));
         this.agent=agent;
 
     }
 
-    public static String extractFromLine(String str, String regex){
+    public static String extractFromLineGroup(String str, String regex) {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(str);
 
-        if (matcher.find()&&!matcher.group(1).equals("-")) {
+        if (matcher.find() && !matcher.group(1).equals("-")) {
             return matcher.group(1);
         }
         return null;
