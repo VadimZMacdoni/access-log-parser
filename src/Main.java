@@ -34,7 +34,7 @@ public class Main {
                 int countQueryFromGoogle = 0;
                 while ((line = reader.readLine()) != null) {
                         int length = line.length();
-                        if(length>1024) throw new RuntimeException("Файл содержит строку длиннее 1024 символов");
+                        if(length>1024) throw new LineLenghtException("Файл содержит строку длиннее 1024 символов");
                         countLines++;
                         Pattern pattern = Pattern.compile("[(](.*?)[)]");
                         Matcher matcher = pattern.matcher(line);
@@ -65,6 +65,8 @@ public class Main {
             }catch (FileNotFoundException ex) {
                 ex.printStackTrace();
             }catch (IOException ex) {
+                ex.printStackTrace();
+            } catch (LineLenghtException ex) {
                 ex.printStackTrace();
             }
         }
