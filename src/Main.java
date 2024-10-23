@@ -1,7 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -85,10 +84,14 @@ public class Main {
                 System.out.println("Объем часового трафика в Мб: "+stat.getTrafficRate());
 
                 //Вывод всех существующих страниц сайта
-                //System.out.println(stat.getPagePath());
+                //System.out.println(stat.getExistingPages());
+
+                //Вывод всех несуществующих страниц сайта
+                //System.out.println(stat.getNotExistingPages());
 
                 //Вывод статистики по операционным системам
-                System.out.println(stat.getOpSystemStat());
+                System.out.println(stat.getOpSystemsStat());
+                System.out.println(stat.getBrowsersStat());
 
             }catch (FileNotFoundException ex) {
                 ex.printStackTrace();
