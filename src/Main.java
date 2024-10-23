@@ -84,6 +84,12 @@ public class Main {
                 //Расчет и вывод среднего объема трафика
                 System.out.println("Объем часового трафика в Мб: "+stat.getTrafficRate());
 
+                //Вывод всех существующих страниц сайта
+                //System.out.println(stat.getPagePath());
+
+                //Вывод статистики по операционным системам
+                System.out.println(stat.getOpSystemStat());
+
             }catch (FileNotFoundException ex) {
                 ex.printStackTrace();
             }catch (IOException ex) {
