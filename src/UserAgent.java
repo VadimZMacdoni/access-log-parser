@@ -4,6 +4,7 @@ import java.util.regex.Pattern;
 public class UserAgent {
     private final String operationalSystem;
     private final String browser;
+    private boolean isBot = false;
 
     public String getOperationalSystem() {
         return operationalSystem;
@@ -11,6 +12,10 @@ public class UserAgent {
 
     public String getBrowser() {
         return browser;
+    }
+
+    public boolean getIsBot() {
+        return isBot;
     }
 
     public UserAgent(String str) {
@@ -61,5 +66,11 @@ public class UserAgent {
             return matcher.group(1);
         }
         return null;
+    }
+
+    public void isBot(String str) {
+
+        if (str.contains("Bot")||str.contains("bot")) this.isBot = true;
+
     }
 }

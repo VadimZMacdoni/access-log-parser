@@ -83,6 +83,15 @@ public class Main {
                 //Расчет и вывод среднего объема трафика
                 System.out.println("Объем часового трафика в Мб: "+stat.getTrafficRate());
 
+                //Расчет и вывод среднего количества посещений
+                System.out.println("Среднее количество посещений в час: "+stat.getAvgNumberVisits());
+
+                //Расчет и вывод среднего количества запросов с ошибками
+                System.out.println("Среднее количество ошибочных запросов в час: "+stat.getAvgNumberErrorQuery());
+
+                //Расчет и вывод средней посещаемости одним пользователем
+                System.out.println("Средняя посещаемость одним пользователем: "+stat.getAvgNumberVisitsByUser());
+
                 //Вывод всех существующих страниц сайта
                 //System.out.println(stat.getExistingPages());
 

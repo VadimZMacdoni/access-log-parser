@@ -1,10 +1,16 @@
 import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.stream.Stream;
 
 public class Statistics {
     private long totalTraffic = 0;
+    private long numberUserVisits = 0;
+    private long numberErrorQuery = 0;
+    private HashSet<String> uniqueIpAdd = new HashSet<>();
     private LocalDateTime minTime = new LocalDateTime("01/Jan/2900:00:00:00 +0300");
     private LocalDateTime maxTime = new LocalDateTime("01/Jan/1900:00:00:00 +0300");;
     private HashSet<String> existingPages = new HashSet<>();
@@ -18,7 +24,15 @@ public class Statistics {
     public void addEntry(LogEntry log){
 
         //Аккумулирование суммарного значения трафика
-        totalTraffic+=log.getResponseSize();
+        this.totalTraffic+=log.getResponseSize();
+
+        //Аккумулирование суммарного количества посещений
+        if(!log.getAgent().getIsBot()) this.numberUserVisits++;
+
+        //Аккумулирование запросов с ошибочным ответом
+        if(log.getResponseCode()>=400) this.numberErrorQuery++;
+
+        if(log.getIpAddr()!=null) this.uniqueIpAdd.add(log.getIpAddr());
 
         //Актуализация мин и макс дат
         if(log.getTimeFromLog().date.getTime() < this.minTime.date.getTime()){
@@ -60,13 +74,37 @@ public class Statistics {
 
     public double getTrafficRate(){
 
+        return (double) this.totalTraffic/this.getDiffInHours();
+
+    }
+
+    public double getAvgNumberVisits(){
+
+        return (double) this.numberUserVisits/this.getDiffInHours();
+
+    }
+
+    public double getAvgNumberErrorQuery(){
+
+        return (double) this.numberErrorQuery/this.getDiffInHours();
+
+    }
+
+    public double getAvgNumberVisitsByUser(){
+
+        return (double) this.uniqueIpAdd.size()/this.numberUserVisits;
+
+    }
+
+    public long getDiffInHours(){
+
         Instant minTime = this.minTime.date.toInstant();
         Instant maxTime = this.maxTime.date.toInstant();
 
         Duration duration = Duration.between(minTime, maxTime);
         long diffInHours = duration.toHours();
 
-        return (double) this.totalTraffic/diffInHours;
+        return diffInHours;
 
     }
 
