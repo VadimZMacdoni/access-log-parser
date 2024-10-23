@@ -82,7 +82,7 @@ public class Main {
                 System.out.println("Доля запросов от Googlebot: "+(double)countQueryFromGoogle/countLines);
 
                 //Расчет и вывод среднего объема трафика
-                System.out.println("Объем часового трафика: "+stat.getTrafficRate());
+                System.out.println("Объем часового трафика в Мб: "+stat.getTrafficRate());
 
             }catch (FileNotFoundException ex) {
                 ex.printStackTrace();

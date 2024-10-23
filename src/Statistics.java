@@ -2,7 +2,7 @@ import java.time.Duration;
 import java.time.Instant;
 
 public class Statistics {
-    private int totalTraffic = 0;
+    private long totalTraffic = 0;
     private LocalDateTime minTime = new LocalDateTime("01/Jan/2900:00:00:00 +0300");
     private LocalDateTime maxTime = new LocalDateTime("01/Jan/1900:00:00:00 +0300");;
 

@@ -51,6 +51,9 @@ public class UserAgent {
     }
 
     public static String extractFromLineGroup(String str, String regex) {
+
+        if (str == null) return null;
+
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(str);
 
