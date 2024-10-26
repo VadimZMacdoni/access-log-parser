@@ -92,21 +92,34 @@ public class Main {
                 //Расчет и вывод средней посещаемости одним пользователем
                 System.out.println("Средняя посещаемость одним пользователем: "+stat.getAvgNumberVisitsByUser());
 
+                //Расчет и вывод максимальной посещаемости одним пользователем
+                System.out.println("Максимальная посещаемость одним пользователем: "+stat.getMaxNumberUserVisit());
+
+                //Расчет и вывод максимальной посещаемости в секунду
+                System.out.println("Максимальная посещаемость в секунду: "+stat.getMaxNumberVisitsPerSec());
+
                 //Вывод всех существующих страниц сайта
                 //System.out.println(stat.getExistingPages());
 
                 //Вывод всех несуществующих страниц сайта
                 //System.out.println(stat.getNotExistingPages());
 
-                //Вывод статистики по операционным системам
+                //Вывод всех доменов (referers)
+                System.out.println(stat.getReferers());
+
+                //Вывод статистики по операционным системам и браузерам
+                System.out.println();
+                System.out.println("Вывод статистики по операционным системам");
                 System.out.println(stat.getOpSystemsStat());
+                System.out.println();
+                System.out.println("Вывод статистики по браузерам");
                 System.out.println(stat.getBrowsersStat());
 
             }catch (FileNotFoundException ex) {
                 ex.printStackTrace();
             }catch (IOException ex) {
                 ex.printStackTrace();
-            } catch (LineLenghtException ex) {
+            }catch (LineLenghtException ex) {
                 ex.printStackTrace();
             }
         }
