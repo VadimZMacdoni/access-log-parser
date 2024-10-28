@@ -129,25 +129,24 @@ public class Statistics {
         Instant maxTime = this.maxTime.date.toInstant();
 
         Duration duration = Duration.between(minTime, maxTime);
-        long diffInHours = duration.toHours();
 
-        return diffInHours;
+        return duration.toHours();
 
     }
 
-    public HashSet getExistingPages(){
+    public HashSet<String> getExistingPages(){
         return this.existingPages;
     }
 
-    public HashSet getNotExistingPages(){
+    public HashSet<String> getNotExistingPages(){
         return this.notExistingPages;
     }
 
-    public HashSet getReferers(){
+    public HashSet<String> getReferers(){
         return this.referers;
     }
 
-    public HashMap getOpSystemsStat(){
+    public HashMap<String, Double> getOpSystemsStat(){
 
         int tmp = 0;
         for (String key : this.opSystemsStat.keySet()){
@@ -163,7 +162,7 @@ public class Statistics {
         return opSystemsStat;
     }
 
-    public HashMap getBrowsersStat(){
+    public HashMap<String, Double> getBrowsersStat(){
 
         int tmp = 0;
         for (String key : this.browsersStat.keySet()){
@@ -181,20 +180,16 @@ public class Statistics {
 
     public int getMaxNumberUserVisit(){
 
-        int max = 0;
-        for (String key : this.numberUserVisits.keySet()){
-            if(max < this.numberUserVisits.get(key)) max = this.numberUserVisits.get(key);
-        }
-        return max;
+        return numberUserVisits.values().stream()
+                .max(Integer::compare)
+                .orElseThrow();
     }
 
     public int getMaxNumberVisitsPerSec(){
 
-        int max = 0;
-        for (String key : this.numberVisitsPerSec.keySet()){
-            if(max < this.numberVisitsPerSec.get(key)) max = this.numberVisitsPerSec.get(key);
-        }
-        return max;
+        return numberVisitsPerSec.values().stream()
+                .max(Integer::compare)
+                .orElseThrow();
     }
 
     public static String extractFromLineGroup(String str, String regex) {
