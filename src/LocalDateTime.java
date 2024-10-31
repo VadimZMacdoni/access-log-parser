@@ -12,10 +12,9 @@ public class LocalDateTime {
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MMM/yyyy:HH:mm:ss Z", Locale.ENGLISH);
 
             Date date = formatter.parse(str);
-            this.date=date;
-            this.dateStr=formatter.format(date);
-        }
-        catch (ParseException e) {
+            this.date = date;
+            this.dateStr = formatter.format(date);
+        } catch (ParseException e) {
             e.printStackTrace();
         }
     }

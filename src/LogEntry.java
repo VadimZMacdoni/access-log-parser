@@ -46,31 +46,31 @@ public class LogEntry {
     public LogEntry(String str) {
 
         // ip address
-        this.ipAddr=extractFromLineGroup(str, "((?<!\\d)(?:25[0-5]|2[0-4]\\d|[01]?\\d\\d?)(?:\\.(?:25[0-5]|2[0-4]\\d|[01]?\\d\\d?)){3}(?!\\d))[\\s]");
+        this.ipAddr = extractFromLineGroup(str, "((?<!\\d)(?:25[0-5]|2[0-4]\\d|[01]?\\d\\d?)(?:\\.(?:25[0-5]|2[0-4]\\d|[01]?\\d\\d?)){3}(?!\\d))[\\s]");
 
         // local date time
         LocalDateTime time = new LocalDateTime(extractFromLineGroup(str, "[\\s][\\[](.*?)[]]"));
-        this.time=time;
+        this.time = time;
 
         // http method
-        this.method=HttpMethod.valueOf(extractFromLineGroup(str, "[]](.*?)[/]").replaceAll(" ", "")
+        this.method = HttpMethod.valueOf(extractFromLineGroup(str, "[]](.*?)[/]").replaceAll(" ", "")
                 .replaceAll("\"", ""));
 
         // path
-        this.path=extractFromLineGroup(str, "[ ][/](.*)[\\\"][ ][\\d]");
+        this.path = extractFromLineGroup(str, "[ ][/](.*)[\\\"][ ][\\d]");
 
         // response code
-        this.responseCode=Integer.parseInt(extractFromLineGroup(str, "[\\\"\\s](\\d{3})[\\s]").replaceAll(" ", ""));
+        this.responseCode = Integer.parseInt(extractFromLineGroup(str, "[\\\"\\s](\\d{3})[\\s]").replaceAll(" ", ""));
 
         // response size
-        this.responseSize=Integer.parseInt(extractFromLineGroup(str, "[\\s](\\d+\\s)[\\\"]").replaceAll(" ", ""));
+        this.responseSize = Integer.parseInt(extractFromLineGroup(str, "[\\s](\\d+\\s)[\\\"]").replaceAll(" ", ""));
 
         // referer
-        this.referer=extractFromLineGroup(str, "[\\d][\\s][\\\"](.*)[\\\"][\\s][\\\"]");
+        this.referer = extractFromLineGroup(str, "[\\d][\\s][\\\"](.*)[\\\"][\\s][\\\"]");
 
         // agent
         UserAgent agent = new UserAgent(extractFromLineGroup(str, "[\\\"][\\s][\\\"](.*)[\\\"]"));
-        this.agent=agent;
+        this.agent = agent;
 
     }
 
