@@ -110,10 +110,10 @@ public class Main {
                 //Вывод статистики по операционным системам и браузерам
                 System.out.println();
                 System.out.println("Вывод статистики по операционным системам");
-                System.out.println(stat.getOpSystemsStat());
+                System.out.println(stat.getStat(stat.getOpSystemsStat()));
                 System.out.println();
                 System.out.println("Вывод статистики по браузерам");
-                System.out.println(stat.getBrowsersStat());
+                System.out.println(stat.getStat(stat.getBrowsersStat()));
 
             }catch (FileNotFoundException ex) {
                 ex.printStackTrace();

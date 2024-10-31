@@ -2,8 +2,10 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class Statistics {
     private long totalTraffic = 0;
@@ -99,6 +101,14 @@ public class Statistics {
 
     }
 
+    public HashMap<String, Integer> getOpSystemsStat() {
+        return opSystemsStat;
+    }
+
+    public HashMap<String, Integer> getBrowsersStat() {
+        return browsersStat;
+    }
+
     public double getTrafficRate(){
 
         return (double) this.totalTraffic/this.getDiffInHours();
@@ -146,23 +156,20 @@ public class Statistics {
         return this.referers;
     }
 
-    public HashMap<String, Double> getOpSystemsStat(){
+    public HashMap<String, Double> getStat(HashMap<String, Integer> map){
 
-        int tmp = 0;
-        for (String key : this.opSystemsStat.keySet()){
-            tmp+=this.opSystemsStat.get(key);
-        }
+        int total = map.values().stream()
+                .mapToInt(Integer::intValue)
+                .sum();
 
-        HashMap<String, Double> opSystemsStat = new HashMap<>();
-
-        for (String key : this.opSystemsStat.keySet()){
-            opSystemsStat.put(key, (double)this.opSystemsStat.get(key)/tmp);
-        }
-
-        return opSystemsStat;
+        return map.entrySet().stream()
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        entry -> (double) entry.getValue() / total
+                ));
     }
 
-    public HashMap<String, Double> getBrowsersStat(){
+    /*public HashMap<String, Double> getBrowsersStat(){
 
         int tmp = 0;
         for (String key : this.browsersStat.keySet()){
@@ -176,7 +183,7 @@ public class Statistics {
         }
 
         return browsersStat;
-    }
+    }*/
 
     public int getMaxNumberUserVisit(){
 
@@ -204,4 +211,5 @@ public class Statistics {
         }
         return null;
     }
+
 }
