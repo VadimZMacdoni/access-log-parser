@@ -8,12 +8,12 @@ import java.util.regex.Pattern;
 public class Main {
     public static void main(String[] args) {
         int count = 1;
-        while (true){
+        while (true) {
             String path = new Scanner(System.in).nextLine();
             File file = new File(path);
             boolean fileExists = file.exists();
             boolean isDirectory = file.isDirectory();
-            if(isDirectory) {
+            if (isDirectory) {
                 System.out.println("Указанный путь является путём к папке");
                 continue;
             } else if (!fileExists) {
@@ -21,7 +21,7 @@ public class Main {
                 continue;
             } else {
                 System.out.println("Путь указан верно");
-                System.out.println("Это файл номер "+count);
+                System.out.println("Это файл номер " + count);
                 count++;
             }
 
@@ -76,27 +76,27 @@ public class Main {
                 }
 
                 //Вывод количества строк в файле и доли запросов от YandexBot и Googlebot
-                System.out.println("Количество строк: "+countLines);
-                System.out.println("Доля запросов от YandexBot: "+(double)countQueryFromYandex/countLines);
-                System.out.println("Доля запросов от Googlebot: "+(double)countQueryFromGoogle/countLines);
+                System.out.println("Количество строк: " + countLines);
+                System.out.println("Доля запросов от YandexBot: " + (double) countQueryFromYandex / countLines);
+                System.out.println("Доля запросов от Googlebot: " + (double) countQueryFromGoogle / countLines);
 
                 //Расчет и вывод среднего объема трафика
-                System.out.println("Объем часового трафика в Мб: "+stat.getTrafficRate());
+                System.out.println("Объем часового трафика в Мб: " + stat.getTrafficRate());
 
                 //Расчет и вывод среднего количества посещений
-                System.out.println("Среднее количество посещений в час: "+stat.getAvgNumberVisits());
+                System.out.println("Среднее количество посещений в час: " + stat.getAvgNumberVisits());
 
                 //Расчет и вывод среднего количества запросов с ошибками
-                System.out.println("Среднее количество ошибочных запросов в час: "+stat.getAvgNumberErrorQuery());
+                System.out.println("Среднее количество ошибочных запросов в час: " + stat.getAvgNumberErrorQuery());
 
                 //Расчет и вывод средней посещаемости одним пользователем
-                System.out.println("Средняя посещаемость одним пользователем: "+stat.getAvgNumberVisitsByUser());
+                System.out.println("Средняя посещаемость одним пользователем: " + stat.getAvgNumberVisitsByUser());
 
                 //Расчет и вывод максимальной посещаемости одним пользователем
-                System.out.println("Максимальная посещаемость одним пользователем: "+stat.getMaxNumberUserVisit());
+                System.out.println("Максимальная посещаемость одним пользователем: " + stat.getMaxNumberUserVisit());
 
                 //Расчет и вывод максимальной посещаемости в секунду
-                System.out.println("Максимальная посещаемость в секунду: "+stat.getMaxNumberVisitsPerSec());
+                System.out.println("Максимальная посещаемость в секунду: " + stat.getMaxNumberVisitsPerSec());
 
                 //Вывод всех существующих страниц сайта
                 //System.out.println(stat.getExistingPages());
@@ -115,11 +115,11 @@ public class Main {
                 System.out.println("Вывод статистики по браузерам");
                 System.out.println(stat.getStat(stat.getBrowsersStat()));
 
-            }catch (FileNotFoundException ex) {
+            } catch (FileNotFoundException ex) {
                 ex.printStackTrace();
-            }catch (IOException ex) {
+            } catch (IOException ex) {
                 ex.printStackTrace();
-            }catch (LineLenghtException ex) {
+            } catch (LineLenghtException ex) {
                 ex.printStackTrace();
             }
         }

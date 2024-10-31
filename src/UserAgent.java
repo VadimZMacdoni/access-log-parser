@@ -21,11 +21,11 @@ public class UserAgent {
     public UserAgent(String str) {
 
         // browser
-        if(str == null) {
+        if (str == null) {
             this.browser = null;
-        } else if (str.contains("Edg")){
+        } else if (str.contains("Edg")) {
             this.browser = "Edge";
-        } else if (str.contains("OPR")||str.contains("Opera")) {
+        } else if (str.contains("OPR") || str.contains("Opera")) {
             this.browser = "Opera";
         } else if (str.contains("Safari")) {
             this.browser = "Safari";
@@ -33,16 +33,16 @@ public class UserAgent {
             this.browser = "Chrome";
         } else if (str.contains("Mozilla")) {
             this.browser = "Firefox";
-        }else {
+        } else {
             this.browser = null;
         }
 
         // OS
         String partStr = extractFromLineGroup(str, "[\\s][(](.{20}).");
 
-        if(partStr == null) {
+        if (partStr == null) {
             this.operationalSystem = null;
-        } else if (partStr.contains("Linux")){
+        } else if (partStr.contains("Linux")) {
             this.operationalSystem = "Linux";
         } else if (partStr.contains("Windows")) {
             this.operationalSystem = "Windows";
@@ -50,7 +50,7 @@ public class UserAgent {
             this.operationalSystem = "Mac OS";
         } else if (partStr.contains("compatible")) {
             this.operationalSystem = "compatible";
-        }else {
+        } else {
             this.operationalSystem = null;
         }
     }
@@ -70,7 +70,7 @@ public class UserAgent {
 
     public void isBot(String str) {
 
-        if (str.contains("Bot")||str.contains("bot")) this.isBot = true;
+        if (str.contains("Bot") || str.contains("bot")) this.isBot = true;
 
     }
 }
